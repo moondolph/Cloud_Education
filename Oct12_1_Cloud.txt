@@ -1,0 +1,173 @@
+cd	--> change directory
+su user1  --> user1으로 로그인
+ls /etc/issue  --> issue폴더의 list 
+mkdir 	--> make directory
+cp a.txt test/	--> test폴더에 a.txt파일 copy
+
+cp /etc/issue /tmp/test/ --> etc폴더 안의 issue폴더를 tmp폴더안의 test폴더안에 copy
+cp /etc/issue ./  	--> etc폴더의 issue폴더를 현재 폴더에 copy
+
+mkdir -p 1/2/3  --> 하위폴더 1-2-3구조로 make directory
+
+cp -r ./1/2/ d1
+
+tree ./d1 --> d1폴더의 tree구조 
+
+touch d.txt  --> d.txt파일을 새로 만듬
+
+mv d.txt d1 --> d.txt파일을 d1폴더에 move
+계정이 삭제할 수 있는 권한이 있는 파일만 옮길 수 있다 
+
+
+pwd
+
+ls /workspace/firstContainer / -a
+
+cp /workspace/firstContainer/* ./usertest/	
+cp /workspace/firstContainer/.* ./usertest/   숨긴파일 포함(*앞에.)
+ls ./usertest/ -a
+
+
+ps
+
+ls -------------kernel------------->CPU
+
+kernel:이진수로 인식함
+
+ls --- shell ------ kernel -------------> CPU
+shell:명령어 해석기
+shell종류: bash, csh, ksh, zsh, ...
+meta character : shell이 특별한 의미로 해석하는 문자(대개 특수문자)
+
+redirection : 입출력방향 재지정
+
+file descriptor : 열려있는 파일에 대한 식별자
+0: 표준입력
+1: 표준출력
+2: 표준에러
+
+
+> : 출력방향 전환(표준출력 => file). 파일이 존재하면 overwrite
+>> : 출력방향 전환(표준출력 => file). 파일이 존재하면 append
+
+0< : 입력방향 전환(표준입력 => file). 입력을 키보드가 아닌 파일에서 받아들인다.
+<< : here document.문자열이 들어오면 입력을 닫기.
+
+
+
+ls -l a.txt b.txt c.txt 2> ./error.txt   --> 현재 디렉토리에 있는 a.txt b.txt c.txt의 long(자세한 내용) 출력해줘  표준에러뜨면 error.txt에 입력해줘
+
+ls issue	--> 
+cat issue --> issue의 정보를 출력한다
+file issue -->
+file passwd -->
+ls -ld /etc
+
+cat > a.txt --> cat명령으로 a.txt파일에 글 작성 (overwrite)
+cat < a.txt --> a.txt파일을 cat명령을 통해 출력해라
+
+cat >> a.txt --> a.txt 파일에 글 작성(append)
+
+
+file a.txt --> 
+
+exit --> 계정종료
+
+echo  *  -->
+
+touch linux --> linux 파일을 만들어줘. 출력 x
+
+tr명령: 문자열 치환 명령어
+tr linux LINUX  	--> linux글자를 대문자로
+
+pwd; date;	--> 세미콜론으로 여러 명령 동시에 가능
+
+
+# | pipe 명령 : pipe앞의 명령의 실행결과를 pipe뒤의 명령어의 입력으로 전달
+		왼쪽은 실행 및 출력이 가능해야 하고 파이프의 오른쪽은 입력이 가능해야 함 !		
+
+cat -n passwd | head -n 10 	-->  passwd 폴더 내용 번호붙여서 출력해줘 그리고 그 결과에서 위에서부터 10줄 보여줘
+
+
+grep(get regular expression) 명령
+: 특정한 문자열을 포함하고 있는 라인을 찾기 위해서 사용
+
+grep ubuntu --> ubuntu랑 똑같은 거 찾아보자
+
+
+<(정규) 표현식>
+: 어떤 문자열의 집합을 표시하는 텍스트스트링
+ 일반적으로 텍스트 형식 문서에서 문자열을 찾아내고 치환하고자 할 때 많이 사용
+ vi, ex, ed, sed, grep 등에서 많이 사용 
+
+ex) [ ] : 문자열 중에 하나
+[0-9] : 숫자(한자리 정수) 하나 
+[a-z] : 소문자 한 글자
+[A-Z] : 대문자 한 글자 
+[a-zA-Z] : 대소문자 관계없이 한 글자 
+
+ grep [0-9]	--> 숫자 찾아줘
+
+grep[^a-z]	--> 소문자 아닌거 찾아줘
+
+grep -i ubuntu	--> 대소문자 상관없이 ubuntu 찾아줘
+
+grep nologin passwd | wc -l 	--> nologin이라는 글자를 passwd폴더에서 찾아줘 그리고 l(line)행의 수 세줘
+
+^: 포함하지 않은 문자열
+[^A-Z] : 대문자를 제외한 문자
+
+^ : 라인의 시작
+$ : 라인의 끝
+
+
+
+		
+touch a; touch b
+= touch a b 	---> 똑같음 
+
+
+
+파일검색명령어 
+whereis command : 실행파일 위치, 도움말 파일 찾아줌
+
+which command : 실행파일 위치, 
+
+find [path] [expression] [action] : 
+
+* action : 찾을 결과를 어떻게 처리할 것인가를 의미. 생략하면 print가 default 
+
+whereis find	-->find 찾아줘
+
+find /etc -type d	--> /etc 폴더에서 타입이 d인 애들 찾아줘
+
+[주의]find명령으로 파일명을 검색할 경우 file 이름에 *이라는 메타문자를 사용하여 검색이 가능한데 작은따옴표('  ')를 붙여주는 것을 권장
+ 
+find /etc -name '*.conf' -exec cp {} /tmp/findtest \;	-->etc폴더에서 .conf로된 파일 찾고 copy 실행
+
+하얀거 파일
+파란거 폴더
+
+리눅스서버는 디렉토리구분 / 
+윈도우서버는 디렉토리구분 \ 
+
+vi편집기
+unix의 text모드에서 사용되는 편집기 (vim, emacs, nano)
+
+vi편집기 모드
+1. 명령 모드 :  vi편집기 기본 모드(편집 명령어 ex. 커서 이동 등 - 사용 가능)
+2. 입력 모드 : 키보드 i,a,o,s,등 입력 후 입력명령어 사용 가능
+3. 확장 모드( ex모드, last line모드) : 콜론(:) 입력 후 화면 가장 아래쪽에 명령어 입력
+
+각 모드 사이의 전환
+명령모드 => 입력 모드 전환 : 입력 모드 명령어 중 하나를 입력
+입력모드 => 명령 모드 전환 : esc 키 입력
+입력모드 => 확장 모드 전환 : 반드시 명령모드로 전환 후 확장모드 명령어(:) 입력
+
+
+<느낀점>
+1.기본적인 명령어 감만 익히고 
+
+2.자세한건 인터넷에 정리된거 잘 나와있음
+
+3. 그거 보고 응용하면 됨
